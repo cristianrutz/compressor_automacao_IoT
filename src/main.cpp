@@ -127,7 +127,7 @@ boolean reconnect() {
 }
 
 void desligaSecador() {
-  //realizar função saborzao
+  //realizar função
 }
 
 void ligaSecador() {
@@ -354,23 +354,24 @@ void loop() {
   if (millis() - tempoEstados_Leitura > 50) {
     tempoEstados_Leitura = millis();
 
-    estados();
-
     statusWifi = (WiFi.status() == WL_CONNECTED);
     statusEnergizado = digitalRead(pinoEnergizado);
     statusLigado = digitalRead(pinoLigado);
     statusAlivio = digitalRead(pinoAlivio);
     statusSobrecarga = digitalRead(pinoSobrecarga);
+    //statusON = digitalRead(pinoStatusON);
+    //statusOFF = digitalRead(pinoStatusOFF);
+    //statusONSecador = digitalRead(pinoStatusONSecador);
+    //statusOFFSecador = digitalRead(pinoStatusOFFSecador);
+
     if(digitalRead(pinoFimdecursoAberto) == LOW) {
       valvulaAberta = true;
     }
     if(digitalRead(pinoFimdecursoFechado) == LOW) {
       valvulaAberta = false;
     }
-    //statusON = digitalRead(pinoStatusON);
-    //statusOFF = digitalRead(pinoStatusOFF);
-    //statusONSecador = digitalRead(pinoStatusONSecador);
-    //statusOFFSecador = digitalRead(pinoStatusOFFSecador);
+    
+    estados();
   }
 
 // timer do envio MQTT. mais lento para evitar problemas.
