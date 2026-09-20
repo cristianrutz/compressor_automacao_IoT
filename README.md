@@ -24,3 +24,7 @@ O armazenamento dos dados e hospedagem do servidor é feito por meio de um Orang
 
 **Ideias Futuras:** <br/>
 Uso do servidor para armazenar dados de uso do equipamento (como tempo de uso, temperatura, pressão), propiciando indicadores úteis para manutenção e identificação do atual estado da máquina.
+
+# Funcionamento do WiFi
+
+O usuário deve editar o arquivo "secrets.ini.example" para por as informações de rede, e depois renomea-lo para somente "secrets.ino". Desta forma o ESP irá coletar as informações de rede do usuário.
