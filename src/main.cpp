@@ -136,7 +136,7 @@ void ligaSecador() {
 
 void fechaValvula() {  // orientação com o professor para fazer o código de fecha e abre válvula 
   if(digitalRead(pinoFimdecursoFechado) == HIGH) {
-    analogWrite(pinoIN1, 150);
+    analogWrite(pinoIN1, 150);  //problema do analogWrite com o ESP, não sei se funciona
     analogWrite(pinoIN2, 0);
   } 
   else {
