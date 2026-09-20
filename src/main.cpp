@@ -127,7 +127,7 @@ boolean reconnect() {
 }
 
 void desligaSecador() {
-  //realizar função
+  //realizar função saborzao
 }
 
 void ligaSecador() {
