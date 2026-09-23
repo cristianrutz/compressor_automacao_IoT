@@ -161,6 +161,7 @@ void abreValvula() {
       //Liga
       // tempoLigado = millis();}
     */
+   // qualquer coisa
   }
   else {
     analogWrite(pinoIN1, 0);
