@@ -150,6 +150,17 @@ void abreValvula() {
   if(digitalRead(pinoFimdecursoAberto) == HIGH) {
     analogWrite(pinoIN1, 150);
     analogWrite(pinoIN2, 0);
+
+    /*
+    PARA LIGAR EM PEQUENOS INTERVALOS
+
+    if(statusLigado == TRUE && millis() - tempoLigado > 3){
+	    // Desliga
+	    // tempoDesligado = millis();}
+    if(statusLigado == FALSE && millis() - tempoDesligado > 30){
+      //Liga
+      // tempoLigado = millis();}
+    */
   }
   else {
     analogWrite(pinoIN1, 0);
@@ -211,7 +222,7 @@ void estados() {
 
 
     case LIGA_SECADOR:  // liga secador
-    ligaSecador();
+    ligaSecador(); //digitalWrite(pinoOnOffSecador, HIGH);
     mudaEstado(AGUARDA_ALIVIO);
     break;
 
@@ -234,11 +245,11 @@ void estados() {
     case EM_FUNCIONAMENTO:  // colocar posteriormente: if(horarioatual >= 23h) {numero de usuários = 0} e variações usando RTC
     if(desejoON == true) {
       numeroUsuarios ++;
-      desejoON = false;
+      //desejoON = false;
     }
     if(desejoOFF == true) {
       numeroUsuarios --;
-      desejoOFF = false;
+      //desejoOFF = false;
     }
     if(numeroUsuarios == 0) {
       mudaEstado(ACIONA_OFF);
@@ -247,7 +258,7 @@ void estados() {
 
 
     case ACIONA_OFF:  // aperta o botão OFF por 2s (aciona relé de desliga)
-    desejoON = false; 
+    desejoON = false; // VERIFICAR DEPOIS O AJUSTE PARA USAR BOTAO DE PULSO NO SCADABR
     digitalWrite(pinoDesejoOFF, HIGH);
     if(millis() - marcaTempo >= 2000) {
       mudaEstado(DESACIONA_OFF);
@@ -270,7 +281,7 @@ void estados() {
 
 
     case DESLIGA_SECADOR:
-    desligaSecador();
+    desligaSecador(); //digitalWrite(pinoOnOffSecador, LOW);
     if(statusLigado == false){
       contadorTentativas = 0;
       mudaEstado(ENERGIZADO);
@@ -354,7 +365,7 @@ void loop() {
   if (millis() - tempoEstados_Leitura > 50) {
     tempoEstados_Leitura = millis();
 
-    statusWifi = (WiFi.status() == WL_CONNECTED);
+    statusWifi = (WiFi.status() == WL_CONNECTED); // verificar se é aqui o lugar correto
     statusEnergizado = digitalRead(pinoEnergizado);
     statusLigado = digitalRead(pinoLigado);
     statusAlivio = digitalRead(pinoAlivio);
@@ -364,12 +375,12 @@ void loop() {
     //statusONSecador = digitalRead(pinoStatusONSecador);
     //statusOFFSecador = digitalRead(pinoStatusOFFSecador);
 
-    if(digitalRead(pinoFimdecursoAberto) == LOW) {
+    /*if(digitalRead(pinoFimdecursoAberto) == LOW) {
       valvulaAberta = true;
     }
     if(digitalRead(pinoFimdecursoFechado) == LOW) {
       valvulaAberta = false;
-    }
+    }*/ //Estaria conflitando com o estado entre aberto e fechado da válvula, então não é necessário.
     
     estados();
   }
@@ -383,7 +394,7 @@ void loop() {
       //doc["OFF"] = statusOFF;
       //doc["SecadorON"] = statusONSecador;
       //doc["SecadorOFF"] = statusOFFSecador;
-      doc["desejoON"] = desejoON;
+      doc["desejoON"] = desejoON; // desejoON e desejoOFF apenas chegam e não são enviados
       doc["desejoOFF"] = desejoOFF;
       doc["Energizado"] = statusEnergizado;
       doc["Ligado"] = statusLigado;
